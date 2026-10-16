@@ -9,26 +9,26 @@ airboard as a chrome extension for webex in the browser (macOS)
 
 ## MediaPipe Hands
 ### adjust folders accordingly
-cd ~/Desktop
+```cd ~/Desktop
 mkdir -p webex-air-whiteboard/mediapipe
 cd webex-air-whiteboard
 curl -L https://registry.npmjs.org/@mediapipe/hands/-/hands-0.4.1675469240.tgz -o hands.tgz
 tar -xzf hands.tgz
 cp package/* mediapipe/
-rm -rf package hands.tgz
+rm -rf package hands.tgz```
 
 ## fonts
 ### if your webex-air-whiteboard folder is on your desktop
 ### you can pick your fonts - here are three
-cd ~/Desktop/webex-air-whiteboard
+```cd ~/Desktop/webex-air-whiteboard
 mkdir -p fonts
 curl -L "https://fonts.gstatic.com/s/lato/v24/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2" -o fonts/Lato-Bold.woff2
 curl -L "https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4Y_LDrMfIA.woff2" -o fonts/Comfortaa-Bold.woff2
-curl -L "https://fonts.gstatic.com/s/plusjakartasans/v8/L0hebDFMVAiXo2bf05H34JcI9_2N2M4.woff2" -o fonts/GoogleSans-Bold.woff2
+curl -L "https://fonts.gstatic.com/s/plusjakartasans/v8/L0hebDFMVAiXo2bf05H34JcI9_2N2M4.woff2" -o fonts/GoogleSans-Bold.woff2```
 
 ## file structure
 webex-air-whiteboard/
-├── manifest.json
+```├── manifest.json
 ├── injector.js
 ├── tracker.js
 ├── sandbox.html
@@ -40,7 +40,7 @@ webex-air-whiteboard/
     ├── hands.js
     ├── hands_solution_packed_assets.data
     ├── hands_solution_simd_wasm_bin.js
-    └── hands_solution_simd_wasm_bin.wasm
+    └── hands_solution_simd_wasm_bin.wasm```
 
 ## chrome extension
 - chrome://extensions/
