@@ -9,7 +9,7 @@ airboard as a chrome extension for webex in the browser (macOS)
 
 ## MediaPipe Hands
 ### adjust folders accordingly
-```cd ~/Desktop
+cd ~/Desktop
 mkdir -p webex-air-whiteboard/mediapipe
 cd webex-air-whiteboard
 curl -L https://registry.npmjs.org/@mediapipe/hands/-/hands-0.4.1675469240.tgz -o hands.tgz
@@ -27,7 +27,7 @@ curl -L "https://fonts.gstatic.com/s/comfortaa/v45/1Pt_g8LJRfWJmhDAuUsSQamb1W0lw
 curl -L "https://fonts.gstatic.com/s/plusjakartasans/v8/L0hebDFMVAiXo2bf05H34JcI9_2N2M4.woff2" -o fonts/GoogleSans-Bold.woff2
 
 ## file structure
-webex-air-whiteboard/
+```webex-air-whiteboard/
 ├── manifest.json
 ├── injector.js
 ├── tracker.js
