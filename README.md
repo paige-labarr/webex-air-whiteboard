@@ -1,5 +1,5 @@
 # airboard
-airboard as a chrome extension for webex in the browser (macOS)
+airboard as a chrome extension for webex (macOS)
 
 ## good stuff
 ☝️ draw or stamp
