@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="mediapipe/hands.js"></script>
+</head>
+<body>
+  <script>
+    const hands = new Hands({
+      locateFile: (file) => `mediapipe/${file}`
+    });
+
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.7
+    });
+
+    hands.onResults((results) => {
+      if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+        const lm = results.multiHandLandmarks[0];
+
+        const thumbTip = lm[4];
+        const indexTip = lm[8], indexPip = lm[6];
+        const middleTip = lm[12], middlePip = lm[10];
+        const ringTip = lm[16], ringPip = lm[14];
+        const pinkyTip = lm[20], pinkyPip = lm[18];
+        const palmCenter = lm[9];
+
+        const isIndexUp = indexTip.y < indexPip.y;
+        const isMiddleUp = middleTip.y < middlePip.y;
+        const isRingUp = ringTip.y < ringPip.y;
+        const isPinkyUp = pinkyTip.y < pinkyPip.y;
+
+        const pinchDist = Math.hypot(thumbTip.x - indexTip.x, thumbTip.y - indexTip.y);
+
+        let mode = 'none';
+        let outX = indexTip.x;
+        let outY = indexTip.y;
+
+        if (isIndexUp && isMiddleUp && isRingUp && isPinkyUp) {
+          mode = 'erase';
+          outX = palmCenter.x;
+          outY = palmCenter.y;
+        } else if (pinchDist < 0.055) {
+          mode = 'pinch';
+          outX = (thumbTip.x + indexTip.x) / 2;
+          outY = (thumbTip.y + indexTip.y) / 2;
+        } else if (isIndexUp && !isMiddleUp) {
+          mode = 'draw';
+        } else if (isIndexUp && isMiddleUp) {
+          mode = 'hover';
+        }
+
+        window.parent.postMessage({
+          type: 'AIR_WB_HAND',
+          x: outX,
+          y: outY,
+          mode: mode
+        }, '*');
+      } else {
+        window.parent.postMessage({
+          type: 'AIR_WB_HAND',
+          x: 0,
+          y: 0,
+          mode: 'none'
+        }, '*');
+      }
+    });
+
+    const frameImg = new Image();
+    let isProcessing = false;
+
+    frameImg.onload = async () => {
+      try {
+        await hands.send({ image: frameImg });
+      } catch (err) {
+        // Ignore initial warmup frame errors
+      } finally {
+        isProcessing = false;
+      }
+    };
+
+    window.addEventListener('message', (event) => {
+      if (!event.data || event.data.type !== 'AIR_WB_FRAME') return;
+      if (isProcessing) return;
+      isProcessing = true;
+      frameImg.src = event.data.dataUrl;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Webex Air Whiteboard",
+  "version": "1.3",
+  "description": "Draw in the air, snap shapes, and stamp draggable text onto your Webex camera feed.",
+  "permissions": ["scripting"],
+  "host_permissions": ["*://*.webex.com/*"],
+  "sandbox": {
+    "pages": ["sandbox.html"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.webex.com/*"],
+      "js": ["injector.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": ["*://*.webex.com/*"],
+      "js": ["tracker.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["sandbox.html", "mediapipe/*", "fonts/*"],
+      "matches": ["*://*.webex.com/*"]
+    }
+  ]
+}
