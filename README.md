@@ -1,5 +1,6 @@
 # airboard
 airboard as a chrome extension for webex (macOS)
+significant contributions from Gemini 4 Argon
 
 ## good stuff
 ☝️ draw or stamp
